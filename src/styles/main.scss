@@ -8,8 +8,19 @@ body {
   text-align: center;
   margin-top: 100px;
 }
-#login-form-container{
+.navbar-light .navbar-brand {
+  font-family: "Oregano", cursive !important;
+  color: red;
+  font-weight: 900;
+  font-size: 2em;
+}
+#login-form-container {
   display: flex;
   justify-content: flex-end;
   align-content: flex-start;
+}
+#vocab-display {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-around;
 }
