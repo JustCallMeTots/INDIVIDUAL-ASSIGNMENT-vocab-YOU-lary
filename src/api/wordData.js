@@ -14,7 +14,7 @@ const getWords = () => new Promise((resolve, reject) => {
 const createWords = (wordObj) => new Promise((resolve, reject) => {
   axios.post(`${dbUrl}/words.json`, wordObj)
     .then((response) => {
-      const demWords = { firebasekey: response.data.name };
+      const demWords = { firebaseKey: response.data.name };
       axios.patch(`${dbUrl}/words/${response.data.name}.json`, demWords)
         .then(() => {
           getWords(wordObj).then(resolve);
@@ -23,15 +23,15 @@ const createWords = (wordObj) => new Promise((resolve, reject) => {
 });
 
 // GET ONE DATA BOI
-const getSingleWord = (firebasekey) => new Promise((resolve, reject) => {
-  axios.get(`${dbUrl}/words/${firebasekey}.json`)
+const getSingleWord = (firebaseKey) => new Promise((resolve, reject) => {
+  axios.get(`${dbUrl}/words/${firebaseKey}.json`)
     .then((response) => resolve(response.data))
     .catch((error) => reject(error));
 });
 
 // GET THAT DATA OUTTA HERE
-const deleteWord = (firebasekey) => new Promise((resolve, reject) => {
-  axios.delete(`${dbUrl}/words/${firebasekey}.json`)
+const deleteWord = (firebaseKey) => new Promise((resolve, reject) => {
+  axios.delete(`${dbUrl}/words/${firebaseKey}.json`)
     .then(() => {
       getWords().then((wordsArray) => resolve(wordsArray));
     })
@@ -40,7 +40,7 @@ const deleteWord = (firebasekey) => new Promise((resolve, reject) => {
 
 // AYO UPDATE THAT SHIT
 const updateWord = (wordObj) => new Promise((resolve, reject) => {
-  axios.patch(`${dbUrl}/words/${wordObj.firebasekey}.json`, wordObj)
+  axios.patch(`${dbUrl}/words/${wordObj.firebaseKey}.json`, wordObj)
     .then(() => getWords().then(resolve))
     .catch(reject);
 });
