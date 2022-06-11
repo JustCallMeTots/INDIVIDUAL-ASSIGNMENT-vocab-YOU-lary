@@ -1,7 +1,7 @@
 import { createWords, updateWord } from '../../api/wordData';
 import { showWords } from '../components/pages/words';
 
-const formEvents = () => {
+const formEvents = (uid) => {
   document.querySelector('#main-shit').addEventListener('submit', (e) => {
     e.preventDefault();
     const subbyTime = new Date();
@@ -11,7 +11,8 @@ const formEvents = () => {
         Title: document.querySelector('#Title').value,
         Definition: document.querySelector('#Definition').value,
         Language: document.querySelector('#Language').value,
-        Time_Submitted: subbyTime,
+        Time_Submitted: subbyTime.toLocaleTimeString(),
+        uid
       };
 
       createWords(wordObj).then((wordArray) => showWords(wordArray));

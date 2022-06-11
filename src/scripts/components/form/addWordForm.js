@@ -13,10 +13,12 @@ const addWordForm = (obj = {}) => {
       <textarea class="form-control" placeholder="definition" id="Definition"></textarea>
       <label for="floatingTextarea">Definition</label>
     </div>
-      <div class="form-floating" id="language">
-      <input type="text" class="form-control" id="Language" placeholder="Language">
-      <label for="floatingPassword">Language</label>
-    </div>
+    <select class="form-select" id="Language" aria-label="Default select example">
+            <option selected>Language</option>
+            <option value="English">English</option>
+            <option value="Hebrew">Hebrew</option>
+            <option value="Spanish">Spanish</option>
+          </select>
     <button type="submit" class="btn btn-dark">Submit Word</button>
   </form>
   `;

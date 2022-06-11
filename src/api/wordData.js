@@ -4,8 +4,8 @@ import firebaseConfig from './apiKeys';
 const dbUrl = firebaseConfig.databaseURL;
 
 // GET THAT DATA BITCH
-const getWords = () => new Promise((resolve, reject) => {
-  axios.get(`${dbUrl}/words.json`)
+const getWords = (uid) => new Promise((resolve, reject) => {
+  axios.get(`${dbUrl}/words.json?orderBy="uid"&equalTo="${uid}"`)
     .then((response) => resolve(Object.values(response.data)))
     .catch((error) => reject(error));
 });
@@ -17,7 +17,7 @@ const createWords = (wordObj) => new Promise((resolve, reject) => {
       const demWords = { firebaseKey: response.data.name };
       axios.patch(`${dbUrl}/words/${response.data.name}.json`, demWords)
         .then(() => {
-          getWords(wordObj).then(resolve);
+          getWords(wordObj.uid).then(resolve);
         });
     }).catch(reject);
 });
@@ -30,19 +30,41 @@ const getSingleWord = (firebaseKey) => new Promise((resolve, reject) => {
 });
 
 // GET THAT DATA OUTTA HERE
-const deleteWord = (firebaseKey) => new Promise((resolve, reject) => {
+const deleteWord = (firebaseKey, uid) => new Promise((resolve, reject) => {
   axios.delete(`${dbUrl}/words/${firebaseKey}.json`)
     .then(() => {
-      getWords().then((wordsArray) => resolve(wordsArray));
+      getWords(uid).then((wordsArray) => resolve(wordsArray));
     })
     .catch((error) => reject(error));
 });
 
 // AYO UPDATE THAT SHIT
-const updateWord = (wordObj) => new Promise((resolve, reject) => {
+const updateWord = (uid, wordObj) => new Promise((resolve, reject) => {
   axios.patch(`${dbUrl}/words/${wordObj.firebaseKey}.json`, wordObj)
-    .then(() => getWords().then(resolve))
+    .then(() => getWords(uid).then(resolve))
     .catch(reject);
+});
+
+// YOU WANT THESE SORTED BY LANGUAGE ?
+const wordsEnglish = (uid) => new Promise((resolve, reject) => {
+  getWords(uid)
+    .then((userWords) => {
+      const wordEng = userWords.filter((word) => word.Language === 'English'); resolve(wordEng);
+    }).catch((error) => reject(error));
+});
+
+const wordsHebrew = (uid) => new Promise((resolve, reject) => {
+  getWords(uid)
+    .then((userWords) => {
+      const wordHeb = userWords.filter((word) => word.Language === 'Hebrew'); resolve(wordHeb);
+    }).catch((error) => reject(error));
+});
+
+const wordsSpanish = (uid) => new Promise((resolve, reject) => {
+  getWords(uid)
+    .then((userWords) => {
+      const wordSpn = userWords.filter((word) => word.Language === 'Spanish'); resolve(wordSpn);
+    }).catch((error) => reject(error));
 });
 
 export {
@@ -51,4 +73,7 @@ export {
   createWords,
   updateWord,
   deleteWord,
+  wordsEnglish,
+  wordsHebrew,
+  wordsSpanish,
 };
