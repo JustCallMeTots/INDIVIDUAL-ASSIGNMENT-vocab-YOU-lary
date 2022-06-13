@@ -4,6 +4,7 @@ const navBar = () => {
   const domString = `
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <div class="container-fluid">
+
     <a class="navbar-brand" href="#">Vocab Words</a>
    
     <div class="collapse navbar-collapse" id="navbarStuff">

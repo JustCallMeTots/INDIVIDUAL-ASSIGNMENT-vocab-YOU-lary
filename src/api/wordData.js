@@ -30,10 +30,10 @@ const getSingleWord = (firebaseKey) => new Promise((resolve, reject) => {
 });
 
 // GET THAT DATA OUTTA HERE
-const deleteWord = (firebaseKey, uid) => new Promise((resolve, reject) => {
+const deleteWord = (firebaseKey) => new Promise((resolve, reject) => {
   axios.delete(`${dbUrl}/words/${firebaseKey}.json`)
     .then(() => {
-      getWords(uid).then((wordsArray) => resolve(wordsArray));
+      getWords().then((wordsArray) => resolve(wordsArray));
     })
     .catch((error) => reject(error));
 });
@@ -47,24 +47,21 @@ const updateWord = (uid, wordObj) => new Promise((resolve, reject) => {
 
 // YOU WANT THESE SORTED BY LANGUAGE ?
 const wordsEnglish = (uid) => new Promise((resolve, reject) => {
-  getWords(uid)
-    .then((userWords) => {
-      const wordEng = userWords.filter((word) => word.Language === 'English'); resolve(wordEng);
-    }).catch((error) => reject(error));
+  getWords(uid).then((userWords) => {
+    const wordEng = userWords.filter((words) => words.Language === 'English'); resolve(wordEng);
+  }).catch((error) => reject(error));
 });
 
 const wordsHebrew = (uid) => new Promise((resolve, reject) => {
-  getWords(uid)
-    .then((userWords) => {
-      const wordHeb = userWords.filter((word) => word.Language === 'Hebrew'); resolve(wordHeb);
-    }).catch((error) => reject(error));
+  getWords(uid).then((userWords) => {
+    const wordHeb = userWords.filter((words) => words.Language === 'Hebrew'); resolve(wordHeb);
+  }).catch((error) => reject(error));
 });
 
 const wordsSpanish = (uid) => new Promise((resolve, reject) => {
-  getWords(uid)
-    .then((userWords) => {
-      const wordSpn = userWords.filter((word) => word.Language === 'Spanish'); resolve(wordSpn);
-    }).catch((error) => reject(error));
+  getWords(uid).then((userWords) => {
+    const wordSpn = userWords.filter((words) => words.Language === 'Spanish'); resolve(wordSpn);
+  }).catch((error) => reject(error));
 });
 
 export {

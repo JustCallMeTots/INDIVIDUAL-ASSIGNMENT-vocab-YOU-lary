@@ -1,5 +1,5 @@
 import domBuilder from '../components/domBuilder';
-import logoutButton from '../components/buttons/logoutButton';
+import logoutButton from '../logoutButton';
 import navBar from '../components/navBar';
 import { showWords } from '../components/pages/words';
 import { getWords } from '../../api/wordData';
